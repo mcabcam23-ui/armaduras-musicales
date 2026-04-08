@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armaduras - Juego de Arrastrar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>COLOCAR EL NOMBRE A LAS SIGUIENTES ARMADURAS</h1>
+
+    <section class="mode-panel" aria-label="Seleccionar modo">
+      <label for="modeSelect">Modo:</label>
+      <select id="modeSelect">
+        <option value="sharp-major">Sostenidos - Mayores</option>
+        <option value="sharp-minor">Sostenidos - Menores</option>
+        <option value="flat-major">Bemoles - Mayores</option>
+        <option value="flat-minor">Bemoles - Menores</option>
+        <option value="mixed">Mezclado</option>
+      </select>
+      <button id="loadModeBtn" type="button" class="secondary">Cargar modo</button>
+    </section>
+
+    <section class="bank" aria-label="Banco de notas">
+    </section>
+
+    <section class="grid" aria-label="Armaduras para completar">
+    </section>
+
+    <section class="actions">
+      <button id="checkBtn" type="button">Corregir</button>
+      <button id="resetBtn" type="button" class="secondary">Reiniciar</button>
+    </section>
+
+    <p id="result" aria-live="polite"></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
