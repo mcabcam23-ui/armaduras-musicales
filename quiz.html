@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Armaduras</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <a class="top-link" href="index.html">← Volver a juegos de armaduras</a>
+    <h1>QUIZ DE ARMADURAS</h1>
+    <p class="prompt">Mira la armadura y toca el nombre correcto.</p>
+
+    <section class="mode-panel" aria-label="Seleccionar conjunto">
+      <label for="quizMode">Modo:</label>
+      <select id="quizMode">
+        <option value="major">Mayores</option>
+        <option value="minor">Menores</option>
+        <option value="all">Todo</option>
+      </select>
+      <button id="newQuizBtn" type="button" class="secondary">Nueva ronda</button>
+    </section>
+
+    <section id="quizCard" class="card"></section>
+    <section id="quizOptions" class="quiz-options" aria-label="Opciones de respuesta"></section>
+
+    <p id="quizResult" class="feedback" aria-live="polite"></p>
+  </main>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
