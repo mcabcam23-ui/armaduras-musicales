@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construye la Armadura</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <a class="top-link" href="index.html">← Volver a juegos de armaduras</a>
+    <h1>CONSTRUYE LA ARMADURA</h1>
+    <p class="prompt">Ajusta tipo y cantidad de alteraciones para acertar la tonalidad.</p>
+
+    <section class="mode-panel" aria-label="Seleccionar modo">
+      <label for="buildMode">Modo:</label>
+      <select id="buildMode">
+        <option value="sharp-major">Sostenidos - Mayores</option>
+        <option value="sharp-minor">Sostenidos - Menores</option>
+        <option value="flat-major">Bemoles - Mayores</option>
+        <option value="flat-minor">Bemoles - Menores</option>
+        <option value="major-mixed">Mayores (mixto)</option>
+        <option value="minor-mixed">Menores (mixto)</option>
+        <option value="mixed">Mezclado</option>
+      </select>
+    </section>
+
+    <section class="card">
+      <p id="targetLabel" class="prompt"></p>
+      <div id="buildStaff" class="staff" data-accidental="none" data-count="0">
+        <span class="clef">𝄞</span>
+        <div class="accidental-group" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="builder-panel">
+      <div class="builder-group">
+        <p>Tipo de alteracion</p>
+        <div class="builder-type">
+          <button id="typeNone" type="button" class="type-btn active">Sin alteraciones</button>
+          <button id="typeSharp" type="button" class="type-btn">Sostenidos ♯</button>
+          <button id="typeFlat" type="button" class="type-btn">Bemoles ♭</button>
+        </div>
+      </div>
+
+      <div class="builder-group">
+        <p>Cantidad</p>
+        <div class="builder-count">
+          <button id="countDown" type="button" class="counter-btn">-</button>
+          <span id="countValue" class="counter-value">0</span>
+          <button id="countUp" type="button" class="counter-btn">+</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="checkBuildBtn" type="button">Comprobar</button>
+      <button id="nextBuildBtn" type="button" class="secondary">Siguiente</button>
+    </section>
+
+    <p id="buildResult" class="feedback" aria-live="polite"></p>
+  </main>
+
+  <script src="build.js"></script>
+</body>
+</html>

@@ -7,9 +7,14 @@ const resetBtn = document.getElementById("resetBtn");
 const result = document.getElementById("result");
 
 let dragNote = null;
+let mixedPool = [];
+let activeTouchDrag = null;
+const IS_TOUCH_DEVICE =
+  window.matchMedia("(pointer: coarse)").matches ||
+  "ontouchstart" in window;
 
-const SHARP_TOPS = [-9, 9, -17, 1, 19, -1, 17];
-const FLAT_TOPS = [9, -9, 13, -5, 17, -1, 21];
+const SHARP_TOPS = [-4, 14, 32, 8, 26, 2, 20];
+const FLAT_TOPS = [14, -4, 20, 2, 26, 8, 32];
 
 const EXERCISES = {
   "sharp-major": [
@@ -55,24 +60,49 @@ function shuffle(list) {
   return copy;
 }
 
+function roundSizeForCurrentScreen() {
+  if (window.matchMedia("(max-width: 768px)").matches) return 4;
+  return 6;
+}
+
 function getCurrentSet() {
   const mode = modeSelect.value;
+  const size = roundSizeForCurrentScreen();
+  if (mode === "major-mixed") {
+    return shuffle([
+      ...EXERCISES["sharp-major"],
+      ...EXERCISES["flat-major"]
+    ]).slice(0, size);
+  }
+  if (mode === "minor-mixed") {
+    return shuffle([
+      ...EXERCISES["sharp-minor"],
+      ...EXERCISES["flat-minor"]
+    ]).slice(0, size);
+  }
   if (mode === "mixed") {
-    const all = [
+    const all = shuffle([
       ...EXERCISES["sharp-major"],
       ...EXERCISES["sharp-minor"],
       ...EXERCISES["flat-major"],
       ...EXERCISES["flat-minor"]
-    ];
-    return shuffle(all).slice(0, 12);
+    ]);
+
+    // Keep a rotating pool so each mixed round shows different items
+    // until all options have been used once.
+    if (mixedPool.length < size) {
+      mixedPool = shuffle(all);
+    }
+
+    return mixedPool.splice(0, size);
   }
-  return [...EXERCISES[mode]];
+  return shuffle([...EXERCISES[mode]]).slice(0, size);
 }
 
 function createToken(note) {
   const token = document.createElement("div");
   token.className = "token";
-  token.draggable = true;
+  token.draggable = !IS_TOUCH_DEVICE;
   token.dataset.note = note;
   token.textContent = note;
   addTokenEvents(token);
@@ -130,6 +160,85 @@ function renderKeySignatures() {
   });
 }
 
+function findDropZoneAt(x, y) {
+  const stack = document.elementsFromPoint(x, y);
+  for (let i = 0; i < stack.length; i += 1) {
+    const zone = stack[i].closest(".drop-zone");
+    if (zone) return zone;
+  }
+  return null;
+}
+
+function clearDropZoneHover() {
+  [...document.querySelectorAll(".drop-zone")].forEach((zone) => zone.classList.remove("over"));
+}
+
+function placeTokenInZone(token, zone) {
+  const oldToken = zone.querySelector(".token");
+  if (oldToken && oldToken !== token) bank.appendChild(oldToken);
+  zone.appendChild(token);
+  clearFeedback();
+}
+
+function startTouchDrag(token, touch) {
+  const rect = token.getBoundingClientRect();
+  activeTouchDrag = {
+    token,
+    touchId: touch.identifier,
+    originParent: token.parentNode,
+    originNext: token.nextSibling,
+    baseLeft: rect.left,
+    baseTop: rect.top,
+    startX: touch.clientX,
+    startY: touch.clientY
+  };
+
+  document.body.appendChild(token);
+  token.classList.add("token--touch-dragging");
+  token.style.position = "fixed";
+  token.style.left = `${rect.left}px`;
+  token.style.top = `${rect.top}px`;
+  token.style.width = `${rect.width}px`;
+  token.style.zIndex = "10000";
+  token.style.pointerEvents = "none";
+  token.style.transform = "translate(0px, 0px)";
+}
+
+function moveTouchDrag(touch) {
+  if (!activeTouchDrag) return;
+  const dx = touch.clientX - activeTouchDrag.startX;
+  const dy = touch.clientY - activeTouchDrag.startY;
+  activeTouchDrag.token.style.transform = `translate(${dx}px, ${dy}px)`;
+
+  clearDropZoneHover();
+  const zone = findDropZoneAt(touch.clientX, touch.clientY);
+  if (zone) zone.classList.add("over");
+}
+
+function restoreTouchDragToken() {
+  if (!activeTouchDrag) return;
+  const { token, originParent, originNext } = activeTouchDrag;
+  if (!originParent) return;
+  if (originNext && originNext.parentNode === originParent) {
+    originParent.insertBefore(token, originNext);
+  } else {
+    originParent.appendChild(token);
+  }
+}
+
+function endTouchDrag() {
+  if (!activeTouchDrag) return;
+  const { token } = activeTouchDrag;
+  token.classList.remove("token--touch-dragging");
+  token.style.position = "";
+  token.style.left = "";
+  token.style.top = "";
+  token.style.width = "";
+  token.style.zIndex = "";
+  token.style.pointerEvents = "";
+  token.style.transform = "";
+}
+
 function bindDropZones() {
   const dropZones = [...document.querySelectorAll(".drop-zone")];
 
@@ -169,15 +278,35 @@ function bindDropZones() {
 }
 
 function addTokenEvents(token) {
-  token.addEventListener("dragstart", (e) => {
-    dragNote = token.dataset.note;
-    token.classList.add("dragging");
-    e.dataTransfer.setData("text/plain", dragNote);
-  });
+  if (!IS_TOUCH_DEVICE) {
+    token.addEventListener("dragstart", (e) => {
+      dragNote = token.dataset.note;
+      token.classList.add("dragging");
+      e.dataTransfer.setData("text/plain", dragNote);
+    });
 
-  token.addEventListener("dragend", () => {
-    token.classList.remove("dragging");
-  });
+    token.addEventListener("dragend", () => {
+      token.classList.remove("dragging");
+    });
+  }
+
+  token.addEventListener(
+    "touchstart",
+    (e) => {
+      const touch = e.changedTouches[0];
+      if (!touch || activeTouchDrag) return;
+      e.preventDefault();
+      startTouchDrag(token, touch);
+    },
+    { passive: false }
+  );
+}
+
+function getTouchById(touchList, id) {
+  for (let i = 0; i < touchList.length; i += 1) {
+    if (touchList[i].identifier === id) return touchList[i];
+  }
+  return null;
 }
 
 function clearFeedback() {
@@ -186,7 +315,10 @@ function clearFeedback() {
   dropZones.forEach((zone) => zone.classList.remove("correct", "wrong"));
   cards.forEach((card) => {
     const feedback = card.querySelector(".feedback");
-    if (feedback) feedback.textContent = "";
+    if (feedback) {
+      feedback.textContent = "";
+      feedback.classList.remove("ok", "bad");
+    }
   });
   result.textContent = "";
 }
@@ -206,11 +338,19 @@ checkBtn.addEventListener("click", () => {
       zone.classList.add("correct");
       correct += 1;
       const feedback = card.querySelector(".feedback");
-      if (feedback) feedback.textContent = "Correcto";
+      if (feedback) {
+        feedback.textContent = "Correcto";
+        feedback.classList.remove("bad");
+        feedback.classList.add("ok");
+      }
     } else {
       zone.classList.add("wrong");
       const feedback = card.querySelector(".feedback");
-      if (feedback) feedback.textContent = `Correcta: ${expected}`;
+      if (feedback) {
+        feedback.textContent = `Incorrecto: era ${expected}`;
+        feedback.classList.remove("ok");
+        feedback.classList.add("bad");
+      }
     }
   });
 
@@ -234,7 +374,10 @@ resetBtn.addEventListener("click", () => {
   });
   cards.forEach((card) => {
     const feedback = card.querySelector(".feedback");
-    if (feedback) feedback.textContent = "";
+    if (feedback) {
+      feedback.textContent = "";
+      feedback.classList.remove("ok", "bad");
+    }
   });
   result.textContent = "";
   result.style.color = "#111";
@@ -249,6 +392,56 @@ function loadMode() {
   bindDropZones();
   clearFeedback();
 }
+
+document.addEventListener(
+  "touchmove",
+  (e) => {
+    if (!activeTouchDrag) return;
+    const touch = getTouchById(e.touches, activeTouchDrag.touchId);
+    if (!touch) return;
+    e.preventDefault();
+    moveTouchDrag(touch);
+  },
+  { passive: false }
+);
+
+document.addEventListener(
+  "touchend",
+  (e) => {
+    if (!activeTouchDrag) return;
+    const touch = getTouchById(e.changedTouches, activeTouchDrag.touchId);
+    if (!touch) return;
+
+    const token = activeTouchDrag.token;
+    const zone = findDropZoneAt(touch.clientX, touch.clientY);
+    endTouchDrag();
+    clearDropZoneHover();
+
+    if (zone) {
+      placeTokenInZone(token, zone);
+    } else {
+      restoreTouchDragToken();
+    }
+
+    activeTouchDrag = null;
+  },
+  { passive: true }
+);
+
+document.addEventListener(
+  "touchcancel",
+  (e) => {
+    if (!activeTouchDrag) return;
+    const touch = getTouchById(e.changedTouches, activeTouchDrag.touchId);
+    if (!touch) return;
+
+    endTouchDrag();
+    clearDropZoneHover();
+    restoreTouchDragToken();
+    activeTouchDrag = null;
+  },
+  { passive: true }
+);
 
 loadModeBtn.addEventListener("click", loadMode);
 modeSelect.addEventListener("change", loadMode);
