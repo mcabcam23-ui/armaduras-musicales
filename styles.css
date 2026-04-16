@@ -451,6 +451,10 @@ button.secondary {
       0 66px;
   }
 
+  .staff .accidental-group {
+    top: 6px;
+  }
+
   .drop-zone {
     width: 72px;
     min-height: 40px;
