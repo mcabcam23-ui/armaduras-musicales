@@ -50,22 +50,6 @@ function modeItems() {
   return ITEMS.filter((i) => i.type === quizMode.value);
 }
 
-function accidentalLayout(accidentalType) {
-  if (window.matchMedia("(max-width: 768px)").matches) {
-    return accidentalType === "sharp"
-      ? { baseLeft: 52, step: 14 }
-      : { baseLeft: 55, step: 13 };
-  }
-  if (window.matchMedia("(max-width: 1024px)").matches) {
-    return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 17 }
-      : { baseLeft: 64, step: 16 };
-  }
-  return accidentalType === "sharp"
-    ? { baseLeft: 68, step: 24 }
-    : { baseLeft: 74, step: 23 };
-}
-
 function staffHtml(item) {
   return `
     <div class="staff" data-accidental="${item.accidental}" data-count="${item.count}">
@@ -84,7 +68,8 @@ function paintAccidentals(staff) {
   if (accidentalType === "none" || count === 0) return;
   const positions = accidentalType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
   const symbol = accidentalType === "sharp" ? "♯" : "♭";
-  const { baseLeft, step } = accidentalLayout(accidentalType);
+  const baseLeft = accidentalType === "sharp" ? 68 : 74;
+  const step = accidentalType === "sharp" ? 24 : 23;
   for (let i = 0; i < count; i += 1) {
     const accidental = document.createElement("span");
     accidental.className = "accidental";

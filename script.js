@@ -68,13 +68,13 @@ function roundSizeForCurrentScreen() {
 function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 52, step: 14 }
-      : { baseLeft: 55, step: 13 };
+      ? { baseLeft: 49, step: 12 }
+      : { baseLeft: 52, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 17 }
-      : { baseLeft: 64, step: 16 };
+      ? { baseLeft: 56, step: 15 }
+      : { baseLeft: 60, step: 14 };
   }
   return accidentalType === "sharp"
     ? { baseLeft: 68, step: 24 }

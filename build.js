@@ -46,22 +46,6 @@ let selectedType = "none";
 let selectedCount = 0;
 let target = null;
 
-function accidentalLayout(accidentalType) {
-  if (window.matchMedia("(max-width: 768px)").matches) {
-    return accidentalType === "sharp"
-      ? { baseLeft: 52, step: 14 }
-      : { baseLeft: 55, step: 13 };
-  }
-  if (window.matchMedia("(max-width: 1024px)").matches) {
-    return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 17 }
-      : { baseLeft: 64, step: 16 };
-  }
-  return accidentalType === "sharp"
-    ? { baseLeft: 68, step: 24 }
-    : { baseLeft: 74, step: 23 };
-}
-
 function modeItems() {
   const mode = buildMode.value;
   if (mode === "major-mixed") return ITEMS.filter((item) => item.type === "major");
@@ -86,7 +70,8 @@ function paintAccidentals() {
   if (selectedType === "none" || selectedCount === 0) return;
   const positions = selectedType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
   const symbol = selectedType === "sharp" ? "♯" : "♭";
-  const { baseLeft, step } = accidentalLayout(selectedType);
+  const baseLeft = selectedType === "sharp" ? 68 : 74;
+  const step = selectedType === "sharp" ? 24 : 23;
   for (let i = 0; i < selectedCount; i += 1) {
     const accidental = document.createElement("span");
     accidental.className = "accidental";
