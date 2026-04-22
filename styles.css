@@ -455,6 +455,14 @@ button.secondary {
     top: 6px;
   }
 
+  .accidental {
+    font-size: 27px;
+  }
+
+  .staff[data-accidental="sharp"] .accidental {
+    transform: translateY(-2px);
+  }
+
   .drop-zone {
     width: 72px;
     min-height: 40px;
@@ -501,5 +509,15 @@ button.secondary {
   .builder-panel {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .accidental {
+    font-size: 30px;
+  }
+
+  .staff[data-accidental="sharp"] .accidental {
+    transform: translateY(-1px);
   }
 }
