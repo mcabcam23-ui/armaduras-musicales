@@ -60,24 +60,45 @@ function setTypeButtons() {
   typeFlat.classList.toggle("active", selectedType === "flat");
 }
 
+function accidentalLayout(accidentalType) {
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    return accidentalType === "sharp"
+      ? { baseLeft: 60, step: 12 }
+      : { baseLeft: 52, step: 11 };
+  }
+  if (window.matchMedia("(max-width: 1024px)").matches) {
+    return accidentalType === "sharp"
+      ? { baseLeft: 56, step: 15 }
+      : { baseLeft: 60, step: 14 };
+  }
+  return accidentalType === "sharp"
+    ? { baseLeft: 68, step: 24 }
+    : { baseLeft: 74, step: 23 };
+}
+
 function paintAccidentals() {
   buildStaff.dataset.accidental = selectedType;
   buildStaff.dataset.count = selectedCount;
   countValue.textContent = String(selectedCount);
   const group = buildStaff.querySelector(".accidental-group");
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
   if (!group) return;
   group.innerHTML = "";
   if (selectedType === "none" || selectedCount === 0) return;
   const positions = selectedType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
   const symbol = selectedType === "sharp" ? "♯" : "♭";
-  const baseLeft = selectedType === "sharp" ? 68 : 74;
-  const step = selectedType === "sharp" ? 24 : 23;
+  const { baseLeft, step } = accidentalLayout(selectedType);
+  const mobileDrop = isMobile
+    ? selectedType === "sharp"
+      ? 6
+      : 13
+    : 0;
   for (let i = 0; i < selectedCount; i += 1) {
     const accidental = document.createElement("span");
     accidental.className = "accidental";
     accidental.textContent = symbol;
     accidental.style.left = `${baseLeft + i * step}px`;
-    accidental.style.top = `${positions[i]}px`;
+    accidental.style.top = `${positions[i] + mobileDrop}px`;
     group.appendChild(accidental);
   }
 }
