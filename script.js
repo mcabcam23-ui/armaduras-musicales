@@ -15,7 +15,6 @@ const IS_TOUCH_DEVICE =
 
 const SHARP_TOPS = [-4, 14, 32, 8, 26, 2, 20];
 const FLAT_TOPS = [14, -4, 20, 2, 26, 8, 32];
-const FLAT_TOPS_MOBILE = [24, 6, 30, 12, 36, 18, 42];
 
 const EXERCISES = {
   "sharp-major": [
@@ -69,17 +68,17 @@ function roundSizeForCurrentScreen() {
 function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 12, topOffset: 7 }
-      : { baseLeft: 62, step: 11, topOffset: 0 };
+      ? { baseLeft: 49, step: 12 }
+      : { baseLeft: 52, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 56, step: 15, topOffset: 2 }
-      : { baseLeft: 60, step: 14, topOffset: 2 };
+      ? { baseLeft: 56, step: 15 }
+      : { baseLeft: 60, step: 14 };
   }
   return accidentalType === "sharp"
-    ? { baseLeft: 68, step: 24, topOffset: 0 }
-    : { baseLeft: 74, step: 23, topOffset: 0 };
+    ? { baseLeft: 68, step: 24 }
+    : { baseLeft: 74, step: 23 };
 }
 
 function getCurrentSet() {
@@ -151,7 +150,6 @@ function renderCards(exercises) {
 
 function renderKeySignatures() {
   const staves = [...document.querySelectorAll(".staff")];
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   staves.forEach((staff) => {
     const accidentalType = staff.dataset.accidental;
@@ -162,24 +160,16 @@ function renderKeySignatures() {
     group.innerHTML = "";
     if (accidentalType === "none" || count === 0) return;
 
-    const positions =
-      accidentalType === "sharp"
-        ? SHARP_TOPS
-        : isMobile
-          ? FLAT_TOPS_MOBILE
-          : FLAT_TOPS;
+    const positions = accidentalType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
     const symbol = accidentalType === "sharp" ? "♯" : "♭";
-    const { baseLeft, step, topOffset } = accidentalLayout(accidentalType);
+    const { baseLeft, step } = accidentalLayout(accidentalType);
 
     for (let i = 0; i < count; i += 1) {
       const accidental = document.createElement("span");
       accidental.className = "accidental";
       accidental.textContent = symbol;
       accidental.style.left = `${baseLeft + i * step}px`;
-      accidental.style.top = `${positions[i] + topOffset}px`;
-      if (isMobile && accidentalType === "flat") {
-        accidental.style.fontSize = "34px";
-      }
+      accidental.style.top = `${positions[i]}px`;
       group.appendChild(accidental);
     }
   });

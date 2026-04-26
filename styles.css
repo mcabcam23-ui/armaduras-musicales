@@ -451,12 +451,16 @@ button.secondary {
       0 66px;
   }
 
-  .game-drag .accidental {
-    font-size: 25px;
+  .staff .accidental-group {
+    top: 3px;
   }
 
-  .staff[data-accidental="flat"] .accidental {
-    font-size: 31px;
+  .staff[data-accidental="sharp"] .accidental {
+    transform: translateY(-1px);
+  }
+
+  .game-drag .accidental {
+    font-size: 25px;
   }
 
   .drop-zone {
@@ -509,6 +513,14 @@ button.secondary {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .staff .accidental-group {
+    top: 2px;
+  }
+
+  .staff[data-accidental="sharp"] .accidental {
+    transform: translateY(-1px);
+  }
+
   .game-drag .accidental {
     font-size: 28px;
   }
