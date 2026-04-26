@@ -455,6 +455,10 @@ button.secondary {
     font-size: 25px;
   }
 
+  .staff[data-accidental="flat"] .accidental {
+    font-size: 29px;
+  }
+
   .drop-zone {
     width: 72px;
     min-height: 40px;
