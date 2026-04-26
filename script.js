@@ -173,7 +173,7 @@ function renderKeySignatures() {
     const mobileDrop = isMobile
       ? accidentalType === "sharp"
         ? 4
-        : 8
+        : 7
       : 0;
 
     for (let i = 0; i < count; i += 1) {
