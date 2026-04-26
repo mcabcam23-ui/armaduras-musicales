@@ -15,7 +15,7 @@ const IS_TOUCH_DEVICE =
 
 const SHARP_TOPS = [-4, 14, 32, 8, 26, 2, 20];
 const FLAT_TOPS = [14, -4, 20, 2, 26, 8, 32];
-const FLAT_TOPS_MOBILE = [40, 22, 46, 28, 52, 34, 58];
+const FLAT_TOPS_MOBILE = [24, 6, 30, 12, 36, 18, 42];
 
 const EXERCISES = {
   "sharp-major": [
