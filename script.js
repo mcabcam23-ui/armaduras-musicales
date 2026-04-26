@@ -172,8 +172,8 @@ function renderKeySignatures() {
     const { baseLeft, step } = accidentalLayout(accidentalType);
     const mobileDrop = isMobile
       ? accidentalType === "sharp"
-        ? 6
-        : 13
+        ? 4
+        : 11
       : 0;
 
     for (let i = 0; i < count; i += 1) {
