@@ -68,16 +68,16 @@ function roundSizeForCurrentScreen() {
 function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 49, step: 12 }
+      ? { baseLeft: 60, step: 12, topOffset: 7 }
       : { baseLeft: 52, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 56, step: 15 }
+      ? { baseLeft: 56, step: 15, topOffset: 2 }
       : { baseLeft: 60, step: 14 };
   }
   return accidentalType === "sharp"
-    ? { baseLeft: 68, step: 24 }
+    ? { baseLeft: 68, step: 24, topOffset: 0 }
     : { baseLeft: 74, step: 23 };
 }
 
@@ -162,14 +162,14 @@ function renderKeySignatures() {
 
     const positions = accidentalType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
     const symbol = accidentalType === "sharp" ? "♯" : "♭";
-    const { baseLeft, step } = accidentalLayout(accidentalType);
+    const { baseLeft, step, topOffset = 0 } = accidentalLayout(accidentalType);
 
     for (let i = 0; i < count; i += 1) {
       const accidental = document.createElement("span");
       accidental.className = "accidental";
       accidental.textContent = symbol;
       accidental.style.left = `${baseLeft + i * step}px`;
-      accidental.style.top = `${positions[i]}px`;
+      accidental.style.top = `${positions[i] + topOffset}px`;
       group.appendChild(accidental);
     }
   });
