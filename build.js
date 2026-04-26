@@ -22,24 +22,30 @@ const ITEMS = [
   { label: "La", accidental: "sharp", count: 3, mode: "sharp-major", type: "major" },
   { label: "Mi", accidental: "sharp", count: 4, mode: "sharp-major", type: "major" },
   { label: "Si", accidental: "sharp", count: 5, mode: "sharp-major", type: "major" },
+  { label: "Fa#", accidental: "sharp", count: 6, mode: "sharp-major", type: "major" },
+  { label: "Do#", accidental: "sharp", count: 7, mode: "sharp-major", type: "major" },
   { label: "Fa", accidental: "flat", count: 1, mode: "flat-major", type: "major" },
   { label: "Sib", accidental: "flat", count: 2, mode: "flat-major", type: "major" },
   { label: "Mib", accidental: "flat", count: 3, mode: "flat-major", type: "major" },
   { label: "Lab", accidental: "flat", count: 4, mode: "flat-major", type: "major" },
   { label: "Reb", accidental: "flat", count: 5, mode: "flat-major", type: "major" },
   { label: "Solb", accidental: "flat", count: 6, mode: "flat-major", type: "major" },
+  { label: "Dob", accidental: "flat", count: 7, mode: "flat-major", type: "major" },
   { label: "Lam", accidental: "none", count: 0, mode: "sharp-minor", type: "minor" },
   { label: "Mim", accidental: "sharp", count: 1, mode: "sharp-minor", type: "minor" },
   { label: "Sim", accidental: "sharp", count: 2, mode: "sharp-minor", type: "minor" },
   { label: "Fa#m", accidental: "sharp", count: 3, mode: "sharp-minor", type: "minor" },
   { label: "Do#m", accidental: "sharp", count: 4, mode: "sharp-minor", type: "minor" },
   { label: "Sol#m", accidental: "sharp", count: 5, mode: "sharp-minor", type: "minor" },
+  { label: "Re#m", accidental: "sharp", count: 6, mode: "sharp-minor", type: "minor" },
+  { label: "La#m", accidental: "sharp", count: 7, mode: "sharp-minor", type: "minor" },
   { label: "Rem", accidental: "flat", count: 1, mode: "flat-minor", type: "minor" },
   { label: "Solm", accidental: "flat", count: 2, mode: "flat-minor", type: "minor" },
   { label: "Dom", accidental: "flat", count: 3, mode: "flat-minor", type: "minor" },
   { label: "Fam", accidental: "flat", count: 4, mode: "flat-minor", type: "minor" },
   { label: "Sibm", accidental: "flat", count: 5, mode: "flat-minor", type: "minor" },
-  { label: "Mibm", accidental: "flat", count: 6, mode: "flat-minor", type: "minor" }
+  { label: "Mibm", accidental: "flat", count: 6, mode: "flat-minor", type: "minor" },
+  { label: "Labm", accidental: "flat", count: 7, mode: "flat-minor", type: "minor" }
 ];
 
 let selectedType = "none";

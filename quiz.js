@@ -14,24 +14,30 @@ const ITEMS = [
   { label: "La", accidental: "sharp", count: 3, type: "major" },
   { label: "Mi", accidental: "sharp", count: 4, type: "major" },
   { label: "Si", accidental: "sharp", count: 5, type: "major" },
+  { label: "Fa#", accidental: "sharp", count: 6, type: "major" },
+  { label: "Do#", accidental: "sharp", count: 7, type: "major" },
   { label: "Fa", accidental: "flat", count: 1, type: "major" },
   { label: "Sib", accidental: "flat", count: 2, type: "major" },
   { label: "Mib", accidental: "flat", count: 3, type: "major" },
   { label: "Lab", accidental: "flat", count: 4, type: "major" },
   { label: "Reb", accidental: "flat", count: 5, type: "major" },
   { label: "Solb", accidental: "flat", count: 6, type: "major" },
+  { label: "Dob", accidental: "flat", count: 7, type: "major" },
   { label: "Lam", accidental: "none", count: 0, type: "minor" },
   { label: "Mim", accidental: "sharp", count: 1, type: "minor" },
   { label: "Sim", accidental: "sharp", count: 2, type: "minor" },
   { label: "Fa#m", accidental: "sharp", count: 3, type: "minor" },
   { label: "Do#m", accidental: "sharp", count: 4, type: "minor" },
   { label: "Sol#m", accidental: "sharp", count: 5, type: "minor" },
+  { label: "Re#m", accidental: "sharp", count: 6, type: "minor" },
+  { label: "La#m", accidental: "sharp", count: 7, type: "minor" },
   { label: "Rem", accidental: "flat", count: 1, type: "minor" },
   { label: "Solm", accidental: "flat", count: 2, type: "minor" },
   { label: "Dom", accidental: "flat", count: 3, type: "minor" },
   { label: "Fam", accidental: "flat", count: 4, type: "minor" },
   { label: "Sibm", accidental: "flat", count: 5, type: "minor" },
-  { label: "Mibm", accidental: "flat", count: 6, type: "minor" }
+  { label: "Mibm", accidental: "flat", count: 6, type: "minor" },
+  { label: "Labm", accidental: "flat", count: 7, type: "minor" }
 ];
 
 let answer = null;

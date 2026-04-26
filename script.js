@@ -23,7 +23,9 @@ const EXERCISES = {
     { label: "Re", accidental: "sharp", count: 2 },
     { label: "La", accidental: "sharp", count: 3 },
     { label: "Mi", accidental: "sharp", count: 4 },
-    { label: "Si", accidental: "sharp", count: 5 }
+    { label: "Si", accidental: "sharp", count: 5 },
+    { label: "Fa#", accidental: "sharp", count: 6 },
+    { label: "Do#", accidental: "sharp", count: 7 }
   ],
   "sharp-minor": [
     { label: "Lam", accidental: "none", count: 0 },
@@ -31,7 +33,9 @@ const EXERCISES = {
     { label: "Sim", accidental: "sharp", count: 2 },
     { label: "Fa#m", accidental: "sharp", count: 3 },
     { label: "Do#m", accidental: "sharp", count: 4 },
-    { label: "Sol#m", accidental: "sharp", count: 5 }
+    { label: "Sol#m", accidental: "sharp", count: 5 },
+    { label: "Re#m", accidental: "sharp", count: 6 },
+    { label: "La#m", accidental: "sharp", count: 7 }
   ],
   "flat-major": [
     { label: "Fa", accidental: "flat", count: 1 },
@@ -39,7 +43,8 @@ const EXERCISES = {
     { label: "Mib", accidental: "flat", count: 3 },
     { label: "Lab", accidental: "flat", count: 4 },
     { label: "Reb", accidental: "flat", count: 5 },
-    { label: "Solb", accidental: "flat", count: 6 }
+    { label: "Solb", accidental: "flat", count: 6 },
+    { label: "Dob", accidental: "flat", count: 7 }
   ],
   "flat-minor": [
     { label: "Rem", accidental: "flat", count: 1 },
@@ -47,7 +52,8 @@ const EXERCISES = {
     { label: "Dom", accidental: "flat", count: 3 },
     { label: "Fam", accidental: "flat", count: 4 },
     { label: "Sibm", accidental: "flat", count: 5 },
-    { label: "Mibm", accidental: "flat", count: 6 }
+    { label: "Mibm", accidental: "flat", count: 6 },
+    { label: "Labm", accidental: "flat", count: 7 }
   ]
 };
 
