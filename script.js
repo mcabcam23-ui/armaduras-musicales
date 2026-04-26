@@ -68,17 +68,17 @@ function roundSizeForCurrentScreen() {
 function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 12, topOffset: 13 }
-      : { baseLeft: 52, step: 11, topOffset: 6 };
+      ? { baseLeft: 60, step: 12 }
+      : { baseLeft: 52, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 56, step: 15, topOffset: 4 }
-      : { baseLeft: 60, step: 14, topOffset: 2 };
+      ? { baseLeft: 56, step: 15 }
+      : { baseLeft: 60, step: 14 };
   }
   return accidentalType === "sharp"
-    ? { baseLeft: 68, step: 24, topOffset: 0 }
-    : { baseLeft: 74, step: 23, topOffset: 0 };
+    ? { baseLeft: 68, step: 24 }
+    : { baseLeft: 74, step: 23 };
 }
 
 function getCurrentSet() {
@@ -150,6 +150,7 @@ function renderCards(exercises) {
 
 function renderKeySignatures() {
   const staves = [...document.querySelectorAll(".staff")];
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   staves.forEach((staff) => {
     const accidentalType = staff.dataset.accidental;
@@ -162,14 +163,19 @@ function renderKeySignatures() {
 
     const positions = accidentalType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
     const symbol = accidentalType === "sharp" ? "♯" : "♭";
-    const { baseLeft, step, topOffset = 0 } = accidentalLayout(accidentalType);
+    const { baseLeft, step } = accidentalLayout(accidentalType);
+    const mobileDrop = isMobile
+      ? accidentalType === "sharp"
+        ? 14
+        : 10
+      : 0;
 
     for (let i = 0; i < count; i += 1) {
       const accidental = document.createElement("span");
       accidental.className = "accidental";
       accidental.textContent = symbol;
       accidental.style.left = `${baseLeft + i * step}px`;
-      accidental.style.top = `${positions[i] + topOffset}px`;
+      accidental.style.top = `${positions[i] + mobileDrop}px`;
       group.appendChild(accidental);
     }
   });
