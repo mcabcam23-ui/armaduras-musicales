@@ -95,7 +95,7 @@ function paintAccidentals(staff) {
   const mobileDrop = isMobile
     ? accidentalType === "sharp"
       ? 3
-      : 9
+      : 8
     : 0;
   for (let i = 0; i < count; i += 1) {
     const accidental = document.createElement("span");
