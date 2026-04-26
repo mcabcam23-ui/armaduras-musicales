@@ -15,6 +15,7 @@ const IS_TOUCH_DEVICE =
 
 const SHARP_TOPS = [-4, 14, 32, 8, 26, 2, 20];
 const FLAT_TOPS = [14, -4, 20, 2, 26, 8, 32];
+const FLAT_TOPS_MOBILE = [32, 14, 38, 20, 44, 26, 50];
 
 const EXERCISES = {
   "sharp-major": [
@@ -69,7 +70,7 @@ function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
       ? { baseLeft: 60, step: 12, topOffset: 7 }
-      : { baseLeft: 62, step: 11, topOffset: 20 };
+      : { baseLeft: 62, step: 11, topOffset: 0 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
@@ -150,6 +151,7 @@ function renderCards(exercises) {
 
 function renderKeySignatures() {
   const staves = [...document.querySelectorAll(".staff")];
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   staves.forEach((staff) => {
     const accidentalType = staff.dataset.accidental;
@@ -160,7 +162,12 @@ function renderKeySignatures() {
     group.innerHTML = "";
     if (accidentalType === "none" || count === 0) return;
 
-    const positions = accidentalType === "sharp" ? SHARP_TOPS : FLAT_TOPS;
+    const positions =
+      accidentalType === "sharp"
+        ? SHARP_TOPS
+        : isMobile
+          ? FLAT_TOPS_MOBILE
+          : FLAT_TOPS;
     const symbol = accidentalType === "sharp" ? "♯" : "♭";
     const { baseLeft, step, topOffset } = accidentalLayout(accidentalType);
 
@@ -170,6 +177,9 @@ function renderKeySignatures() {
       accidental.textContent = symbol;
       accidental.style.left = `${baseLeft + i * step}px`;
       accidental.style.top = `${positions[i] + topOffset}px`;
+      if (isMobile && accidentalType === "flat") {
+        accidental.style.fontSize = "34px";
+      }
       group.appendChild(accidental);
     }
   });
