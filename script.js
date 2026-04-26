@@ -69,7 +69,7 @@ function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
       ? { baseLeft: 60, step: 12, topOffset: 7 }
-      : { baseLeft: 62, step: 11, topOffset: 20 };
+      : { baseLeft: 62, step: 11, topOffset: 100 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
