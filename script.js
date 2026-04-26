@@ -68,17 +68,17 @@ function roundSizeForCurrentScreen() {
 function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 60, step: 12, topOffset: 7 }
-      : { baseLeft: 52, step: 11 };
+      ? { baseLeft: 60, step: 12, topOffset: 13 }
+      : { baseLeft: 52, step: 11, topOffset: 6 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
-      ? { baseLeft: 56, step: 15, topOffset: 2 }
-      : { baseLeft: 60, step: 14 };
+      ? { baseLeft: 56, step: 15, topOffset: 4 }
+      : { baseLeft: 60, step: 14, topOffset: 2 };
   }
   return accidentalType === "sharp"
     ? { baseLeft: 68, step: 24, topOffset: 0 }
-    : { baseLeft: 74, step: 23 };
+    : { baseLeft: 74, step: 23, topOffset: 0 };
 }
 
 function getCurrentSet() {
