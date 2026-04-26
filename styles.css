@@ -456,7 +456,8 @@ button.secondary {
   }
 
   .staff[data-accidental="flat"] .accidental {
-    font-size: 29px;
+    font-size: 31px;
+    transform: translateY(100px) !important;
   }
 
   .drop-zone {
