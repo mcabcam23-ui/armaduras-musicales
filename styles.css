@@ -156,6 +156,7 @@ h1 {
   font-size: 32px;
   line-height: 1;
   color: #13284b;
+  font-weight: 700;
 }
 
 .accidental-group {
@@ -451,8 +452,8 @@ button.secondary {
       0 66px;
   }
 
-  .game-drag .accidental {
-    font-size: 25px;
+  .accidental {
+    font-size: 30px;
   }
 
   .drop-zone {
@@ -505,7 +506,7 @@ button.secondary {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .game-drag .accidental {
-    font-size: 28px;
+  .accidental {
+    font-size: 30px;
   }
 }
