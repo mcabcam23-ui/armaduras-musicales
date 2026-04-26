@@ -94,8 +94,8 @@ function paintAccidentals(staff) {
   const { baseLeft, step } = accidentalLayout(accidentalType);
   const mobileDrop = isMobile
     ? accidentalType === "sharp"
-      ? 4
-      : 11
+      ? 3
+      : 10
     : 0;
   for (let i = 0; i < count; i += 1) {
     const accidental = document.createElement("span");

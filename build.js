@@ -96,8 +96,8 @@ function paintAccidentals() {
   const { baseLeft, step } = accidentalLayout(selectedType);
   const mobileDrop = isMobile
     ? selectedType === "sharp"
-      ? 4
-      : 11
+      ? 3
+      : 10
     : 0;
   for (let i = 0; i < selectedCount; i += 1) {
     const accidental = document.createElement("span");
