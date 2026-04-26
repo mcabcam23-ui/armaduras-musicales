@@ -75,7 +75,7 @@ function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
       ? { baseLeft: 60, step: 12 }
-      : { baseLeft: 52, step: 11 };
+      : { baseLeft: 56, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"

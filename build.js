@@ -70,7 +70,7 @@ function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
       ? { baseLeft: 60, step: 12 }
-      : { baseLeft: 52, step: 11 };
+      : { baseLeft: 56, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
@@ -117,7 +117,7 @@ function setType(type) {
 }
 
 function setCount(next) {
-  selectedCount = Math.max(0, Math.min(6, next));
+  selectedCount = Math.max(0, Math.min(7, next));
   if (selectedCount === 0) selectedType = "none";
   else if (selectedType === "none") selectedType = "sharp";
   setTypeButtons();

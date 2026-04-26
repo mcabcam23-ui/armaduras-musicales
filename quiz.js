@@ -1,5 +1,6 @@
 const quizMode = document.getElementById("quizMode");
 const newQuizBtn = document.getElementById("newQuizBtn");
+const nextQuizBtn = document.getElementById("nextQuizBtn");
 const quizCard = document.getElementById("quizCard");
 const quizOptions = document.getElementById("quizOptions");
 const quizResult = document.getElementById("quizResult");
@@ -69,7 +70,7 @@ function accidentalLayout(accidentalType) {
   if (window.matchMedia("(max-width: 768px)").matches) {
     return accidentalType === "sharp"
       ? { baseLeft: 60, step: 12 }
-      : { baseLeft: 52, step: 11 };
+      : { baseLeft: 56, step: 11 };
   }
   if (window.matchMedia("(max-width: 1024px)").matches) {
     return accidentalType === "sharp"
@@ -150,6 +151,7 @@ function checkAnswer(button, name) {
 }
 
 newQuizBtn.addEventListener("click", buildRound);
+nextQuizBtn.addEventListener("click", buildRound);
 quizMode.addEventListener("change", buildRound);
 
 buildRound();
